@@ -32,3 +32,6 @@ fixing every P0/P1 before refereeing.
 - Keep `swarm.config.ts` the single place for project words and colours.
 - Never put the swarm secret in the UI or its env; it reads with the anon key.
 - Run `npm --prefix swarm-ui run build` before opening a PR.
+- Stop any `swarm-ui` dev server before refereeing. The `ui-build` check runs
+  `npm ci`, which deletes `swarm-ui/node_modules`; on Windows a running dev
+  server holds those files, the check fails in seconds and the server dies.
