@@ -1,52 +1,12 @@
 {
   "tasks": [
     {
-      "title": "Generator: project cards from the Projects section",
-      "target": "generator",
-      "concept": "structure-from-prose",
-      "type": "feature",
-      "prio": "p1",
-      "body": "Bullets under a `## Projects` heading in the form `**Name**: one-liner` (optionally followed by a link) render as project cards (`<article>` with heading, text and link) instead of a plain list.\n\nAcceptance:\n- `parse()` exposes projects as structured items; other sections are unchanged.\n- Tests in `scripts/build.test.mjs` cover a project with and without a link.\n- The sample `description.md` still builds and `npm run check:site` passes."
-    },
-    {
-      "title": "Generator: optional front matter for role, location and links",
-      "target": "generator",
-      "concept": "one-source-of-truth",
-      "type": "feature",
-      "prio": "p1",
-      "body": "Support an optional `---` front-matter block at the top of `description.md` with `role`, `location`, `accent` and `links` (label: url). Absent keys change nothing.\n\nAcceptance:\n- Dependency-free parsing; unknown keys produce a warning, not a crash.\n- Role and location appear in the header; links appear in the header or contact section.\n- Tests for: no front matter, partial front matter, unknown key."
-    },
-    {
-      "title": "Generator: images with required alt text",
-      "target": "generator",
-      "concept": "fail-loud-on-bad-input",
-      "type": "feature",
-      "prio": "p2",
-      "body": "`![alt](path)` in the description renders an `<img>` and copies the file into `dist/`. A missing file or empty alt fails the build with a line-numbered error.\n\nAcceptance:\n- Tests for a valid image, a missing file and empty alt.\n- `check:site` passes for a description with one image."
-    },
-    {
-      "title": "Generator: line-numbered errors for unreadable descriptions",
-      "target": "generator",
-      "concept": "fail-loud-on-bad-input",
-      "type": "feature",
-      "prio": "p2",
-      "body": "When the description cannot be rendered well (no name heading, empty section, duplicate section titles), the build exits non-zero with `description.md:<line>: <what to fix>`.\n\nAcceptance:\n- Each case has a test asserting the message and line number.\n- The sample description builds with no warnings."
-    },
-    {
-      "title": "Site: design tokens and a professional type scale",
+      "title": "Site: design tokens, a professional type scale, and DESIGN.md",
       "target": "site",
       "concept": "design-tokens-first",
       "type": "feature",
       "prio": "p1",
-      "body": "Replace the seed styles with CSS custom properties for a modular type scale, spacing steps and colours (light and dark), and restyle the page with them so it reads as a deliberate, professional portfolio.\n\nAcceptance:\n- All sizes, spaces and colours in the CSS come from tokens.\n- Looks intentional at 375 px and 1280 px wide, in light and dark (attach screenshots to the PR).\n- `npm run check:site` passes; HTML+CSS stays under budget."
-    },
-    {
-      "title": "Site: responsive project card layout",
-      "target": "site",
-      "concept": "design-tokens-first",
-      "type": "feature",
-      "prio": "p2",
-      "body": "Lay out project cards (from the generator task, or the current project list if that has not landed) as a single column on phones and a grid on wide screens, with no horizontal scroll at 320 px.\n\nAcceptance:\n- Screenshots at 320, 768 and 1280 px in the PR.\n- `npm run check:site` passes."
+      "body": "Brief: get the basic site right first, and make it read as a professional personal site (docs/briefs/swarm-dogfood-portfolio.md, PRODUCT.md).\n\nReplace the seed styles in `scripts/build.mjs` with CSS custom properties for a type scale, spacing steps and colours (light and dark), and restyle the generated page with them.\n\nAcceptance:\n- All sizes, spaces and colours in the CSS come from tokens.\n- Looks deliberate at 375 px and 1280 px, light and dark (screenshots in the PR).\n- Run `/impeccable document` to record the resulting system in `DESIGN.md`, then `/impeccable critique` on the built page and fix every P0/P1.\n- `npm run build && npm run check:site` passes; HTML+CSS stays under budget."
     },
     {
       "title": "Site: contrast and heading-order rules in check:site",
@@ -54,31 +14,94 @@
       "concept": "measure-what-you-claim",
       "type": "chore",
       "prio": "p1",
-      "body": "Extend `scripts/checks/site.mjs` so it fails when heading levels skip (h1 to h3) and when the text/background and accent/background token pairs fall below WCAG AA contrast (4.5:1) in either colour scheme.\n\nAcceptance:\n- Rules stay dependency-free.\n- A negative test (a broken copy of the page) shows each new rule failing; paste the output in the PR.\n- The current site passes, or the PR fixes it so it does."
+      "body": "Brief success: checks stay green and mean something.\n\nExtend `scripts/checks/site.mjs` so it fails when heading levels skip (h1 to h3) and when text/background and accent/background colour pairs in the built CSS fall below WCAG AA (4.5:1) in either colour scheme.\n\nAcceptance:\n- Still dependency-free.\n- A deliberately broken copy of the page shows each new rule failing; paste the output in the PR.\n- The current site passes, or the PR fixes it."
     },
     {
-      "title": "Site: Open Graph tags and a favicon from the description",
-      "target": "site",
-      "concept": "one-source-of-truth",
+      "title": "Generator: project cards from the Projects section",
+      "target": "generator",
+      "concept": "structure-from-prose",
       "type": "feature",
-      "prio": "p3",
-      "body": "Emit `og:title`, `og:description`, `og:type` and a simple generated SVG favicon (initials on the accent colour), all derived from the description.\n\nAcceptance:\n- No new fields are required in `description.md`.\n- `check:site` verifies the favicon file exists and the OG tags are non-empty."
+      "prio": "p1",
+      "body": "Brief: one description in, a complete portfolio out.\n\nBullets under `## Projects` in the form `**Name**: one-liner` (optionally with a link) render as project cards (`<article>` with heading, text and link) instead of a plain list.\n\nAcceptance:\n- `parse()` exposes projects as structured items; other sections are unchanged.\n- Tests cover a project with and without a link.\n- `npm test` and `npm run build && npm run check:site` pass."
     },
     {
-      "title": "UI: show the built portfolio on the dashboard home",
-      "target": "ui",
-      "concept": "show-the-product",
+      "title": "Site: responsive project card layout",
+      "target": "site",
+      "concept": "design-tokens-first",
       "type": "feature",
       "prio": "p2",
-      "body": "Make `swarm-ui` `/` show the current built portfolio (an embedded preview or a clear link to it) alongside the swarm's status, so visitors see the product and its makers together.\n\nAcceptance:\n- Works when swarm memory is unreachable (shows the product, hides live stats).\n- `npm --prefix swarm-ui run build` passes."
+      "body": "Brief: the basic site must look professional on a phone and a desktop.\n\nLay out project cards (from the generator project-cards task; the plain list until that lands) as one column on phones and a grid on wide screens, with no horizontal scroll at 320 px.\n\nAcceptance:\n- Uses the design tokens; screenshots at 320, 768 and 1280 px in the PR.\n- `/impeccable critique` on the page, every P0/P1 fixed.\n- `npm run check:site` passes."
     },
     {
-      "title": "UI: theme the dashboard with the portfolio tokens",
+      "title": "Generator: optional front matter for role, location and links",
+      "target": "generator",
+      "concept": "one-source-of-truth",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Brief: the description is the single source of the person's content.\n\nSupport an optional `---` front-matter block at the top of `description.md` with `role`, `location` and `links` (label: url). Absent keys change nothing.\n\nAcceptance:\n- Dependency-free parsing; an unknown key is a warning, not a crash.\n- Role and location appear in the header; links appear in the header or contact section.\n- Tests for: no front matter, partial front matter, unknown key."
+    },
+    {
+      "title": "Generator: line-numbered errors for unreadable descriptions",
+      "target": "generator",
+      "concept": "fail-loud-on-bad-input",
+      "type": "feature",
+      "prio": "p2",
+      "body": "When the description cannot render well (no name heading, empty section, duplicate section titles), the build exits non-zero with `description.md:<line>: <what to fix>`.\n\nAcceptance:\n- Each case has a test asserting the message and the line number.\n- The sample description builds with no warnings."
+    },
+    {
+      "title": "Server: local Node server that serves the built site",
+      "target": "server",
+      "concept": "test-end-to-end",
+      "type": "feature",
+      "prio": "p1",
+      "body": "Brief: counter and messages need a small local server with SQLite, for testing only. This task lays the base; no counter or messages yet.\n\nAdd `server/server.mjs` (no dependencies) exporting `startServer({ port, dbPath, distDir })`. It serves `dist/` and opens a SQLite database with `node:sqlite` at `dbPath` (default a gitignored `data/guest.db`). Add `npm start` (build, then serve on localhost).\n\nAcceptance:\n- `server/server.test.mjs` starts the server on port 0 with a temp database, fetches `/` and `/styles.css`, and shuts down cleanly.\n- The database path is gitignored; nothing is deployed.\n- `npm test` passes."
+    },
+    {
+      "title": "Server: guest counter for home-page views",
+      "target": "server",
+      "concept": "test-end-to-end",
+      "type": "feature",
+      "prio": "p1",
+      "body": "Brief: a guest counter (assumption: it counts home-page views, not unique visitors). Depends on the local server task; leave this unclaimed until that merges.\n\nEach request for `/` increments a count stored in SQLite; `GET /api/visits` returns `{ \"visits\": n }`.\n\nAcceptance:\n- End-to-end test: three requests to `/` give `visits: 3` on a fresh temp database.\n- The count survives a server restart on the same database.\n- `npm test` passes."
+    },
+    {
+      "title": "Site: show the visit count on the page",
+      "target": "site",
+      "concept": "test-end-to-end",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Brief: visitors see the guest counter. Depends on the guest counter task.\n\nShow the current visit count in the footer when the site is served by the local server. The static `dist/` still opens without the server (the count is simply absent).\n\nAcceptance:\n- End-to-end test: the served home page contains the count.\n- `npm run check:site` passes; `/impeccable critique` on the footer, every P0/P1 fixed."
+    },
+    {
+      "title": "Server: guest messages API with SQLite",
+      "target": "server",
+      "concept": "fail-loud-on-bad-input",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Brief: guests leave messages without logging in; no moderation, only length limits and escaping (assumption: optional name, newest first). Depends on the local server task.\n\n`POST /api/messages` accepts `{ name?, text }` (form or JSON); `GET /api/messages` returns the latest 50, newest first.\n\nAcceptance:\n- Rejects empty text and text over 500 characters, and names over 60, with a 400 and a clear message.\n- Stored as plain text; HTML is escaped wherever it is rendered.\n- End-to-end tests for post, list order, and each rejection.\n- `npm test` passes."
+    },
+    {
+      "title": "Site: guestbook form and message list",
+      "target": "site",
+      "concept": "test-end-to-end",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Brief: visitors leave a message and see what others left. Depends on the guest messages API task.\n\nAdd a guestbook section with a form (optional name, message) and the latest messages, newest first. It works as a plain form post without JavaScript.\n\nAcceptance:\n- End-to-end test: posting through the form shows the message on the next page load, escaped.\n- `/impeccable critique` on the section, every P0/P1 fixed; `npm run check:site` passes."
+    },
+    {
+      "title": "UI: dashboard home that says what this swarm builds",
+      "target": "ui",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Brief: the dashboard is separate from the product. It explains the swarm, never embeds or rebuilds the portfolio.\n\nMake `swarm-ui` `/` state in one or two lines what this swarm is building (from swarm.config.ts) and link to targets, results and board.\n\nAcceptance:\n- Works when swarm memory is unreachable.\n- `/impeccable critique` on the page, every P0/P1 fixed.\n- `npm --prefix swarm-ui run build` passes."
+    },
+    {
+      "title": "UI: give the dashboard its own consistent theme",
       "target": "ui",
       "concept": "design-tokens-first",
       "type": "feature",
-      "prio": "p3",
-      "body": "Set `theme.cssVars` in `swarm-ui/app/swarm/swarm.config.ts` so the dashboard's accent, background and text colours match the portfolio's tokens in light and dark.\n\nAcceptance:\n- Only `swarm.config.ts` (and at most `swarm.css` variables) change.\n- Screenshots in light and dark in the PR; `npm --prefix swarm-ui run build` passes."
+      "prio": "p2",
+      "body": "Set `theme.cssVars` in `swarm-ui/app/swarm/swarm.config.ts` so the dashboard has one consistent accent, background and text palette in light and dark. It stays visually separate from the product.\n\nAcceptance:\n- Only `swarm.config.ts` (and at most `swarm.css` variables) change.\n- Screenshots in light and dark; `/impeccable critique`, every P0/P1 fixed; `npm --prefix swarm-ui run build` passes."
     }
   ]
 }

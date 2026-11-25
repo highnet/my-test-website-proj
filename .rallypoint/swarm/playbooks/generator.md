@@ -6,7 +6,7 @@
 `{name, intro, sections[]}`, and `render()` turns that into HTML. Both are
 exported and unit-tested in `scripts/build.test.mjs`.
 
-Measured in `checks` mode: `generator` runs `npm test`; `site` runs
+Measured in `checks` mode: `tests` runs `npm test`; `site` runs
 `npm run build && npm run check:site`, so any generator change that produces
 an invalid page fails there too. No timing noise: checks pass or they don't.
 
@@ -15,6 +15,9 @@ The person writing `description.md` should never need to touch HTML, CSS or
 config to get a professional result.
 
 ## What to try
+Read `docs/briefs/swarm-dogfood-portfolio.md` and `PRODUCT.md` first: the
+description is the single source of the sample person's content.
+
 - Recognise common section shapes (Projects, Experience, Contact) and give
   them richer structure: a project card with title, one-liner and link;
   a dated timeline for experience. (concept: `structure-from-prose`)

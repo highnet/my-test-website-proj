@@ -14,7 +14,13 @@ reason in the pull request.
 
 "Professional" (the goal statement) means it looks deliberate on a phone
 and a desktop, in light and dark, and a stranger can find the person's
-work and contact in seconds.
+work and contact in seconds. The brief says: get the **basic site** right
+first; the guest counter and messages come later from the `server` target.
+
+There is no `DESIGN.md` yet. The first visual task establishes it with
+Impeccable (`/impeccable document` once the look exists), and every later
+visual change runs `/impeccable critique` on the page and fixes every
+P0/P1 before refereeing.
 
 ## What to try
 - A real visual identity: type scale, spacing rhythm, an accent colour the
@@ -34,3 +40,4 @@ work and contact in seconds.
 - Every claim about accessibility or performance needs a check that
   enforces it.
 - Keep the sample `description.md` rendering well: it is the demo.
+- Sample content only. Never invent real clients, metrics or testimonials.

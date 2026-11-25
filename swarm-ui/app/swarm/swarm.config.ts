@@ -15,7 +15,7 @@ import {
 export const swarmConfig: SwarmConfig = {
   project: {
     "name": "My Test Website Proj",
-    "tagline": "A portfolio website, built from one description."
+    "tagline": "A swarm-built portfolio: one description in, a site with a guest counter and guestbook out."
   },
   goal: {
     "title": "Make a cool website",
@@ -32,13 +32,19 @@ export const swarmConfig: SwarmConfig = {
       "id": "generator",
       "name": "Generator",
       "color": "#b7791f",
-      "description": "scripts/build.mjs: turns the single description.md into the site. Owns what a description can express (sections, projects, links, images, metadata) and how forgiving the parser is."
+      "description": "scripts/build.mjs: turns the single description.md into the static site in dist/. Owns what a description can express and how forgiving the parser is."
     },
     {
       "id": "site",
       "name": "Portfolio site",
       "color": "#2f855a",
-      "description": "The built portfolio in dist/: layout, typography, theming, responsiveness, accessibility and performance of the page a visitor sees."
+      "description": "The page a visitor sees: layout, typography, theming, responsiveness and accessibility of the generated site. Basic site first."
+    },
+    {
+      "id": "server",
+      "name": "Guest server",
+      "color": "#9b2c6f",
+      "description": "A small local Node server (node:sqlite, no dependencies) that serves dist/ and adds the guest counter, then guest messages, with end-to-end tests. Local only."
     },
     {
       "id": "ui",

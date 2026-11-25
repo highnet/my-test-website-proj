@@ -10,6 +10,6 @@
   "scripts": {
     "build": "node scripts/build.mjs description.md dist",
     "check:site": "node scripts/checks/site.mjs dist",
-    "test": "node --test \"scripts/**/*.test.mjs\""
+    "test": "node --test"
   }
 }

@@ -36,5 +36,6 @@ two lines on what it is and where it should help.
 - `measure-what-you-claim`, Measure what you claim: every quality claim
   (accessible, fast, responsive) gets a rule in a check before or with the
   change that claims it.
-- `show-the-product`, Show the product: surfaces that talk about the work
-  should show the actual built page, not describe it.
+- `test-end-to-end`, Test end to end: prove a feature through the real
+  path (build, serve, HTTP request, rendered page) rather than mocks. Helps
+  `server` most, and `site` through the built page.

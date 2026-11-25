@@ -13,7 +13,7 @@
     "unit": "",
     "checks": [
       {
-        "name": "generator",
+        "name": "tests",
         "command": "npm test"
       },
       {
@@ -31,18 +31,23 @@
     {
       "id": "generator",
       "name": "Generator",
-      "description": "scripts/build.mjs: turns the single description.md into the site. Owns what a description can express (sections, projects, links, images, metadata) and how forgiving the parser is."
+      "description": "scripts/build.mjs: turns the single description.md into the static site in dist/. Owns what a description can express and how forgiving the parser is."
     },
     {
       "id": "site",
       "name": "Portfolio site",
-      "description": "The built portfolio in dist/: layout, typography, theming, responsiveness, accessibility and performance of the page a visitor sees."
+      "description": "The page a visitor sees: layout, typography, theming, responsiveness and accessibility of the generated site. Basic site first."
+    },
+    {
+      "id": "server",
+      "name": "Guest server",
+      "description": "A small local Node server (node:sqlite, no dependencies) that serves dist/ and adds the guest counter, then guest messages, with end-to-end tests. Local only."
     }
   ],
   "ui": {
     "project": {
       "name": "My Test Website Proj",
-      "tagline": "A portfolio website, built from one description."
+      "tagline": "A swarm-built portfolio: one description in, a site with a guest counter and guestbook out."
     },
     "targets": {
       "generator": {
@@ -50,6 +55,9 @@
       },
       "site": {
         "color": "#2f855a"
+      },
+      "server": {
+        "color": "#9b2c6f"
       },
       "ui": {
         "color": "#2f5bd3"

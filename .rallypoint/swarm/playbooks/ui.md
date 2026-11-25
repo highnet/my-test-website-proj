@@ -11,14 +11,19 @@ Measured in `checks` mode by `ui-build`:
 `npm --prefix swarm-ui ci && npm --prefix swarm-ui run build`. A change
 that breaks the type-check or the production build fails.
 
+**The dashboard is separate from the product** (the brief). It shows the
+swarm's progress; it is not the portfolio and must not embed or rebuild it.
+
 ## What to try
-- A landing page at `/` that shows the current built portfolio next to the
-  swarm's progress, so the product and its makers sit side by side.
-  (concept: `show-the-product`)
-- Target pages for `generator` and `site` that link each shipped version
-  to a screenshot or the built page. (concept: `show-the-product`)
-- Theme variables in `swarm.config.ts` matched to the portfolio's tokens.
-  (concept: `design-tokens-first`)
+- A clear home at `/` that says what this swarm is building and links to
+  the targets, results and board.
+- Target pages that make each target's latest checks result easy to read.
+  (concept: `measure-what-you-claim`)
+- Theme variables in `swarm.config.ts` so the dashboard has its own
+  consistent look. (concept: `design-tokens-first`)
+
+Every UI task ends with `/impeccable critique` on the pages it touched,
+fixing every P0/P1 before refereeing.
 
 ## What failed, and why
 (nothing buried yet)
