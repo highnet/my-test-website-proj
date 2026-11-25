@@ -1,0 +1,84 @@
+{
+  "tasks": [
+    {
+      "title": "Generator: project cards from the Projects section",
+      "target": "generator",
+      "concept": "structure-from-prose",
+      "type": "feature",
+      "prio": "p1",
+      "body": "Bullets under a `## Projects` heading in the form `**Name**: one-liner` (optionally followed by a link) render as project cards (`<article>` with heading, text and link) instead of a plain list.\n\nAcceptance:\n- `parse()` exposes projects as structured items; other sections are unchanged.\n- Tests in `scripts/build.test.mjs` cover a project with and without a link.\n- The sample `description.md` still builds and `npm run check:site` passes."
+    },
+    {
+      "title": "Generator: optional front matter for role, location and links",
+      "target": "generator",
+      "concept": "one-source-of-truth",
+      "type": "feature",
+      "prio": "p1",
+      "body": "Support an optional `---` front-matter block at the top of `description.md` with `role`, `location`, `accent` and `links` (label: url). Absent keys change nothing.\n\nAcceptance:\n- Dependency-free parsing; unknown keys produce a warning, not a crash.\n- Role and location appear in the header; links appear in the header or contact section.\n- Tests for: no front matter, partial front matter, unknown key."
+    },
+    {
+      "title": "Generator: images with required alt text",
+      "target": "generator",
+      "concept": "fail-loud-on-bad-input",
+      "type": "feature",
+      "prio": "p2",
+      "body": "`![alt](path)` in the description renders an `<img>` and copies the file into `dist/`. A missing file or empty alt fails the build with a line-numbered error.\n\nAcceptance:\n- Tests for a valid image, a missing file and empty alt.\n- `check:site` passes for a description with one image."
+    },
+    {
+      "title": "Generator: line-numbered errors for unreadable descriptions",
+      "target": "generator",
+      "concept": "fail-loud-on-bad-input",
+      "type": "feature",
+      "prio": "p2",
+      "body": "When the description cannot be rendered well (no name heading, empty section, duplicate section titles), the build exits non-zero with `description.md:<line>: <what to fix>`.\n\nAcceptance:\n- Each case has a test asserting the message and line number.\n- The sample description builds with no warnings."
+    },
+    {
+      "title": "Site: design tokens and a professional type scale",
+      "target": "site",
+      "concept": "design-tokens-first",
+      "type": "feature",
+      "prio": "p1",
+      "body": "Replace the seed styles with CSS custom properties for a modular type scale, spacing steps and colours (light and dark), and restyle the page with them so it reads as a deliberate, professional portfolio.\n\nAcceptance:\n- All sizes, spaces and colours in the CSS come from tokens.\n- Looks intentional at 375 px and 1280 px wide, in light and dark (attach screenshots to the PR).\n- `npm run check:site` passes; HTML+CSS stays under budget."
+    },
+    {
+      "title": "Site: responsive project card layout",
+      "target": "site",
+      "concept": "design-tokens-first",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Lay out project cards (from the generator task, or the current project list if that has not landed) as a single column on phones and a grid on wide screens, with no horizontal scroll at 320 px.\n\nAcceptance:\n- Screenshots at 320, 768 and 1280 px in the PR.\n- `npm run check:site` passes."
+    },
+    {
+      "title": "Site: contrast and heading-order rules in check:site",
+      "target": "site",
+      "concept": "measure-what-you-claim",
+      "type": "chore",
+      "prio": "p1",
+      "body": "Extend `scripts/checks/site.mjs` so it fails when heading levels skip (h1 to h3) and when the text/background and accent/background token pairs fall below WCAG AA contrast (4.5:1) in either colour scheme.\n\nAcceptance:\n- Rules stay dependency-free.\n- A negative test (a broken copy of the page) shows each new rule failing; paste the output in the PR.\n- The current site passes, or the PR fixes it so it does."
+    },
+    {
+      "title": "Site: Open Graph tags and a favicon from the description",
+      "target": "site",
+      "concept": "one-source-of-truth",
+      "type": "feature",
+      "prio": "p3",
+      "body": "Emit `og:title`, `og:description`, `og:type` and a simple generated SVG favicon (initials on the accent colour), all derived from the description.\n\nAcceptance:\n- No new fields are required in `description.md`.\n- `check:site` verifies the favicon file exists and the OG tags are non-empty."
+    },
+    {
+      "title": "UI: show the built portfolio on the dashboard home",
+      "target": "ui",
+      "concept": "show-the-product",
+      "type": "feature",
+      "prio": "p2",
+      "body": "Make `swarm-ui` `/` show the current built portfolio (an embedded preview or a clear link to it) alongside the swarm's status, so visitors see the product and its makers together.\n\nAcceptance:\n- Works when swarm memory is unreachable (shows the product, hides live stats).\n- `npm --prefix swarm-ui run build` passes."
+    },
+    {
+      "title": "UI: theme the dashboard with the portfolio tokens",
+      "target": "ui",
+      "concept": "design-tokens-first",
+      "type": "feature",
+      "prio": "p3",
+      "body": "Set `theme.cssVars` in `swarm-ui/app/swarm/swarm.config.ts` so the dashboard's accent, background and text colours match the portfolio's tokens in light and dark.\n\nAcceptance:\n- Only `swarm.config.ts` (and at most `swarm.css` variables) change.\n- Screenshots in light and dark in the PR; `npm --prefix swarm-ui run build` passes."
+    }
+  ]
+}

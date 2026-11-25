@@ -15,7 +15,7 @@ import {
 export const swarmConfig: SwarmConfig = {
   project: {
     "name": "My Test Website Proj",
-    "tagline": "Build a complete personal portfolio website from a single description."
+    "tagline": "A portfolio website, built from one description."
   },
   goal: {
     "title": "Make a cool website",
@@ -28,6 +28,18 @@ export const swarmConfig: SwarmConfig = {
     "direction": "higher"
   },
   targets: [
+    {
+      "id": "generator",
+      "name": "Generator",
+      "color": "#b7791f",
+      "description": "scripts/build.mjs: turns the single description.md into the site. Owns what a description can express (sections, projects, links, images, metadata) and how forgiving the parser is."
+    },
+    {
+      "id": "site",
+      "name": "Portfolio site",
+      "color": "#2f855a",
+      "description": "The built portfolio in dist/: layout, typography, theming, responsiveness, accessibility and performance of the page a visitor sees."
+    },
     {
       "id": "ui",
       "name": "UI",

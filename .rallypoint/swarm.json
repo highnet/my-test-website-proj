@@ -6,21 +6,55 @@
   },
   "measure": {
     "mode": "checks",
-    "label": "",
+    "label": "Checks",
     "command": "",
     "direction": "higher",
     "margin": 0,
     "unit": "",
-    "checks": [],
+    "checks": [
+      {
+        "name": "generator",
+        "command": "npm test"
+      },
+      {
+        "name": "site",
+        "command": "npm run build && npm run check:site"
+      },
+      {
+        "name": "ui-build",
+        "command": "npm --prefix swarm-ui ci --no-audit --no-fund && npm --prefix swarm-ui run build"
+      }
+    ],
     "timeoutSeconds": 1800
   },
-  "targets": [],
+  "targets": [
+    {
+      "id": "generator",
+      "name": "Generator",
+      "description": "scripts/build.mjs: turns the single description.md into the site. Owns what a description can express (sections, projects, links, images, metadata) and how forgiving the parser is."
+    },
+    {
+      "id": "site",
+      "name": "Portfolio site",
+      "description": "The built portfolio in dist/: layout, typography, theming, responsiveness, accessibility and performance of the page a visitor sees."
+    }
+  ],
   "ui": {
     "project": {
       "name": "My Test Website Proj",
-      "tagline": ""
+      "tagline": "A portfolio website, built from one description."
     },
-    "targets": {},
+    "targets": {
+      "generator": {
+        "color": "#b7791f"
+      },
+      "site": {
+        "color": "#2f855a"
+      },
+      "ui": {
+        "color": "#2f5bd3"
+      }
+    },
     "vocabulary": {
       "shipped": "shipped",
       "buried": "buried",
