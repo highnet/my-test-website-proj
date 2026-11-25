@@ -1,0 +1,64 @@
+{
+  "goal": {
+    "title": "Make a cool website",
+    "statement": "like a proffesional website",
+    "pitch": "Build a complete personal portfolio website from a single description."
+  },
+  "measure": {
+    "mode": "checks",
+    "label": "",
+    "command": "",
+    "direction": "higher",
+    "margin": 0,
+    "unit": "",
+    "checks": [],
+    "timeoutSeconds": 1800
+  },
+  "targets": [],
+  "ui": {
+    "project": {
+      "name": "My Test Website Proj",
+      "tagline": ""
+    },
+    "targets": {},
+    "vocabulary": {
+      "shipped": "shipped",
+      "buried": "buried",
+      "version": "version"
+    },
+    "includeUiTarget": true
+  },
+  "visibility": "public",
+  "protocolVersion": "p1",
+  "roleOrder": [
+    "merger",
+    "fixer",
+    "reviewer",
+    "improver",
+    "worker",
+    "planner",
+    "janitor"
+  ],
+  "improverRetroThreshold": 3,
+  "conductor": {
+    "concurrency": 4,
+    "budget": null,
+    "focus": "balanced",
+    "pace": "self"
+  },
+  "tunablePaths": [
+    ".rallypoint/roles/",
+    ".rallypoint/swarm/skills/",
+    ".rallypoint/swarm/playbooks/"
+  ],
+  "frozenPaths": [
+    ".rallypoint/scripts/",
+    ".rallypoint/swarm/swarm.mjs",
+    ".rallypoint/swarm/lib/",
+    ".rallypoint/swarm/schema.sql",
+    ".rallypoint/swarm.json",
+    ".rallypoint/roles/reviewer.md",
+    ".rallypoint/roles/merger.md",
+    ".rallypoint/roles/improver.md"
+  ]
+}
