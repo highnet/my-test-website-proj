@@ -5,11 +5,12 @@
   "description": "A complete personal portfolio website, built from a single description.",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "scripts": {
     "build": "node scripts/build.mjs description.md dist",
     "check:site": "node scripts/checks/site.mjs dist",
+    "start": "npm run build && node server/server.mjs",
     "test": "node --test"
   }
 }

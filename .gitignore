@@ -5,3 +5,10 @@ dist/
 !.env.example
 supabase/.temp/
 supabase/.branches/
+
+# Local guest database (server/server.mjs). Never commit it.
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
