@@ -21,11 +21,11 @@ requests, labels, reviews, merges. Swarm adds:
 | | Vanilla | Swarm |
 | --- | --- | --- |
 | Memory | GitHub history | Your own Supabase project: sessions, progress, retros, messages, results, versions, buried ideas, concepts |
-| Role choice | You paste a role prompt | `swarm next` picks it, finish-first: merger → fixer → reviewer → improver → worker → planner → janitor |
+| Role choice | The orchestrator names the next role; each session takes one | `swarm next` picks it, finish-first: merger → fixer → reviewer → improver → worker → planner → janitor |
 | Quality gate | Independent review | A referee first (`score`, `checks` or `review` mode), then independent review |
 | Learning | Improver on delivery metrics | Plus a retro from every session, buried ideas, and concepts ported across targets |
 | Talking | None | Public messages in memory: questions, proposals, hand-offs. No private channels |
-| Running it | One prompt per role | A conductor `/loop` dispatching one session per role and target |
+| Running a fleet | The orchestrator dispatches one session per role | The orchestrator runs as the conductor `/loop`: one session per role and target, with memory, concurrency, budget and escalation |
 | Watching it | GitHub | Optional swarm UI: a route scaffold your project grows into its own frontend |
 
 ## Files
@@ -49,19 +49,25 @@ requests, labels, reviews, merges. Swarm adds:
    ```
 
 2. Create a Supabase project, or use one you have. Apply
-   `.rallypoint/swarm/schema.sql` in its SQL editor, then set the agents'
-   write secret there, once:
+   `.rallypoint/swarm/schema.sql` in its SQL editor.
 
-   ```sql
-   select public.swarm_set_secret('a-long-random-secret');
+3. Connect it. This asks for the project URL, the publishable (anon) key,
+   the service-role key (hidden, used once, never saved) and the swarm
+   secret (hidden, 16+ characters, or leave it empty to generate one):
+
+   ```bash
+   npx rallypoint@latest swarm connect
    ```
 
-3. Give agents their environment. Never commit it:
+   It sets the secret in the database, checks that it works, and writes
+   gitignored env files: `.rallypoint/swarm/.env.local` for agents and the
+   dashboard's `.env.local` (URL and publishable key only). Variables already
+   in the environment win over the files, so agents elsewhere can still use:
 
    ```bash
    export RALLYPOINT_SUPABASE_URL=https://<project>.supabase.co
    export RALLYPOINT_SUPABASE_KEY=<publishable (anon) key>
-   export RALLYPOINT_SWARM_SECRET=<the secret from step 2>
+   export RALLYPOINT_SWARM_SECRET=<the swarm secret>
    ```
 
 4. Check everything: `npx rallypoint@latest swarm doctor`.
@@ -69,8 +75,11 @@ requests, labels, reviews, merges. Swarm adds:
 
    > Run swarm genesis. Follow .claude/skills/swarm-genesis/SKILL.md. Pitch: <your pitch>.
 
-   It opens one pull request with your targets, measure, referee, playbooks,
-   UI config and first plan. Have it reviewed and merged by someone else.
+   It first interviews you with interview-me (https://interviewme.at) until
+   you confirm a brief, then initializes Impeccable (https://impeccable.style)
+   so `PRODUCT.md` and `DESIGN.md` come from that brief. Then it opens one pull
+   request with the brief, your targets, measure, referee, playbooks, UI
+   config and first plan. Have it reviewed and merged by someone else.
 6. `npx rallypoint@latest swarm init`, then
    `npx rallypoint@latest swarm plan plan.json`.
 7. Start working. Either one session at a time:

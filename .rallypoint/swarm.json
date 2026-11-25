@@ -6,21 +6,63 @@
   },
   "measure": {
     "mode": "checks",
-    "label": "",
+    "label": "Checks",
     "command": "",
     "direction": "higher",
     "margin": 0,
     "unit": "",
-    "checks": [],
+    "checks": [
+      {
+        "name": "tests",
+        "command": "npm test"
+      },
+      {
+        "name": "site",
+        "command": "npm run build && npm run check:site"
+      },
+      {
+        "name": "ui-build",
+        "command": "npm --prefix swarm-ui ci --no-audit --no-fund && npm --prefix swarm-ui run build"
+      }
+    ],
     "timeoutSeconds": 1800
   },
-  "targets": [],
+  "targets": [
+    {
+      "id": "generator",
+      "name": "Generator",
+      "description": "scripts/build.mjs: turns the single description.md into the static site in dist/. Owns what a description can express and how forgiving the parser is."
+    },
+    {
+      "id": "site",
+      "name": "Portfolio site",
+      "description": "The page a visitor sees: layout, typography, theming, responsiveness and accessibility of the generated site. Basic site first."
+    },
+    {
+      "id": "server",
+      "name": "Guest server",
+      "description": "A small local Node server (node:sqlite, no dependencies) that serves dist/ and adds the guest counter, then guest messages, with end-to-end tests. Local only."
+    }
+  ],
   "ui": {
     "project": {
       "name": "My Test Website Proj",
-      "tagline": ""
+      "tagline": "A swarm-built portfolio: one description in, a site with a guest counter and guestbook out."
     },
-    "targets": {},
+    "targets": {
+      "generator": {
+        "color": "#b7791f"
+      },
+      "site": {
+        "color": "#2f855a"
+      },
+      "server": {
+        "color": "#9b2c6f"
+      },
+      "ui": {
+        "color": "#2f5bd3"
+      }
+    },
     "vocabulary": {
       "shipped": "shipped",
       "buried": "buried",
