@@ -20,7 +20,9 @@
   },
   "improvement": {
     "tunablePaths": [
-      ".rallypoint/roles/"
+      ".rallypoint/roles/",
+      ".rallypoint/swarm/skills/",
+      ".rallypoint/swarm/playbooks/"
     ],
     "evaluationSample": 10,
     "windowDays": 14,
